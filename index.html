@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   
-<!-- Mirrored from habibi.xyz/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 18 Feb 2025 10:28:33 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -43,8 +42,48 @@
     <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml">
   </head>
   <body>
-    <div id="root"></div>
+    
+    <div id="root">
+      
+    </div>
+
+    <audio id="backgroundMusic" loop style="display: none;">
+      <source src="assets/music.mp3" type="audio/mpeg">
+  </audio>
+  
+  <script>
+  // Attendez que le DOM soit complètement chargé
+  window.addEventListener('DOMContentLoaded', function() {
+      // Attendez que le contenu du #root soit chargé (important pour les sites React/modular)
+      const checkRoot = setInterval(function() {
+          if (document.getElementById('root').children.length > 0) {
+              clearInterval(checkRoot);
+              initAudio();
+          }
+      }, 100);
+  });
+  
+  function initAudio() {
+      const audio = document.getElementById('backgroundMusic');
+      
+      // Fonction pour démarrer la musique
+      function startMusic() {
+          audio.play().catch(function(error) {
+              console.log("Lecture automatique bloquée, attente d'une interaction utilisateur");
+          });
+      }
+  
+      // Essayer de démarrer la musique lors d'une interaction utilisateur
+      document.addEventListener('click', function() {
+          if (audio.paused) {
+              startMusic();
+          }
+      }, { once: true });
+  
+      // Tentative de lecture automatique
+      startMusic();
+  }
+  </script>
   </body>
 
-<!-- Mirrored from habibi.xyz/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 18 Feb 2025 10:28:39 GMT -->
 </html>
